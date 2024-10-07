@@ -1,5 +1,7 @@
 /*
 Package cmd is the entry point for the application. It defines the root command and its subcommands.
+
+Copyright © 2024 Alex Aheyev aheyevalex@gmail.com
 */
 
 package cmd
@@ -7,10 +9,11 @@ package cmd
 import (
 	"os"
 
-	"fmt"
-
 	"github.com/spf13/cobra"
 )
+
+// represents the file path to the text file with todo list items stored
+var filePath string
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -20,12 +23,7 @@ var rootCmd = &cobra.Command{
 	Using command line interface, you can add, remove,
 	list and mark todo items as done.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		toggle, err := cmd.Flags().GetBool("toggle")
-		if err != nil {
-			fmt.Println("Error reading toggle flag:", err)
-			os.Exit(1)
-		}
-		fmt.Printf("Hello from rootCmd. Toggle is set to: %v\n", toggle)
+		listCmd.Run(cmd, args)
 	},
 }
 
@@ -38,14 +36,7 @@ func Execute() {
 	}
 }
 
+// Here you define your flags and configuration settings.
 func init() {
-	// Here you will define your flags and configuration settings.
-	// Cobra supports persistent flags, which, if defined here,
-	// will be global for your application.
-
-	// rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.cobra-cli.yaml)")
-	rootCmd.PersistentFlags().BoolP("goggle", "g", false, "Help message for goggle")
-	// Cobra also supports local flags, which will only run
-	// when this action is called directly.
-	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	rootCmd.PersistentFlags().StringVar(&filePath, "file", "mytodo.txt", "Path to the file")
 }

@@ -1,5 +1,5 @@
 /*
-Copyright © 2024 NAME HERE <EMAIL ADDRESS>
+Copyright © 2024 Alex Aheyev aheyevalex@gmail.com
 */
 package cmd
 
@@ -17,25 +17,16 @@ var addCmd = &cobra.Command{
 	Long: `A longer description that spans multiple lines and likely contains examples
 and usage of using your command.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		goggle, err := cmd.Flags().GetBool("goggle")
+		file, err := cmd.Flags().GetString("file")
 		if err != nil {
-			fmt.Println("Error reading toggle flag:", err)
+			fmt.Println("Error reading file flag:", err)
 			os.Exit(1)
 		}
-		fmt.Printf("add called, Goggle is set to: %v\n", goggle)
+		fmt.Printf("Added todo %v to file: %v\n", args, file)
 	},
 }
 
+// Here you define flags and configuration settings.
 func init() {
 	rootCmd.AddCommand(addCmd)
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// addCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// addCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
