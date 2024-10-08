@@ -6,6 +6,7 @@ package cmd
 import (
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/spf13/cobra"
 )
@@ -22,7 +23,8 @@ and usage of using your command.`,
 			fmt.Println("Error reading file flag:", err)
 			os.Exit(1)
 		}
-		fmt.Printf("Added todo %v to file: %v\n", args, file)
+		task := strings.Join(args, ", ")
+		fmt.Printf("Added todo %v to file: %v\n", task, file)
 	},
 }
 
