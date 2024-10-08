@@ -8,6 +8,8 @@ import (
 	"os"
 	"strings"
 
+	//"encoding/json"
+
 	"github.com/spf13/cobra"
 )
 
@@ -52,4 +54,6 @@ and usage of using your command.`,
 // Here you define flags and configuration settings.
 func init() {
 	rootCmd.AddCommand(addCmd)
+	//	addCmd.Flags().AddFlag().String("file", "todo.txt", "File to store TODO items")
+
 }
