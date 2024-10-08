@@ -38,5 +38,5 @@ func Execute() {
 
 // Here you define your flags and configuration settings.
 func init() {
-	rootCmd.PersistentFlags().StringVar(&filePath, "file", "mytodo.txt", "Path to the file")
+	rootCmd.PersistentFlags().StringVar(&filePath, "file", "mytodo.json", "Path to the file")
 }
