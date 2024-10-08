@@ -4,7 +4,7 @@ Copyright © 2024 Alex Aheyev aheyevalex@gmail.com
 package cmd
 
 import (
-	"bufio"
+	"encoding/json"
 	"fmt"
 	"os"
 
@@ -18,36 +18,28 @@ var listCmd = &cobra.Command{
 	Long:  `A list of created TODO items`,
 	Run: func(cmd *cobra.Command, args []string) {
 		// getting filePath flag
-		filePath, err := cmd.Flags().GetString("file")
-		if err != nil {
-			fmt.Printf("Error getting 'file' flag: %v\n", err)
-			return
-		}
+		filePath, _ := cmd.Flags().GetString("file")
 
-		// Open the file if not opening try to create it
+		// Open the file
 		file, err := os.Open(filePath)
 		if err != nil {
 			fmt.Printf("Error opening file: %v\n", err)
-			file, err = os.Create(filePath)
-			if err != nil {
-				fmt.Printf("Error creating file: %v\n", err)
-				os.Exit(1)
-			}
+			os.Exit(1)
 		}
 		defer file.Close()
 
-		// Print console messages
-		fmt.Println("File:", filePath)
-
-		// Read the file line by line
-		scanner := bufio.NewScanner(file)
-		for scanner.Scan() {
-			line := scanner.Text()
-			fmt.Println(line)
+		// Read and decode tasks from the file
+		var tasks []TodoEntity
+		decoder := json.NewDecoder(file)
+		err = decoder.Decode(&tasks)
+		if err != nil {
+			fmt.Printf("Error decoding JSON: %v\n", err)
+			os.Exit(1)
 		}
-		if err := scanner.Err(); err != nil {
-			fmt.Printf("Error reading file: %v\n", err)
-			return
+
+		// Print the tasks
+		for i, task := range tasks {
+			fmt.Printf("%d. %s (Due: %s, Done: %v)\n", i+1, task.Description, task.DueDate, task.IsDone)
 		}
 	},
 }

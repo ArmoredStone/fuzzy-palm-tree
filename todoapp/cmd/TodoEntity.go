@@ -8,15 +8,15 @@ type TodoEntity struct {
 }
 
 // NewTodoEntity is the constructor for TodoEntity with default values.
-func NewTodoEntity() *TodoEntity {
+func NewTodoEntity(description string, dueDate string, isDone bool) *TodoEntity {
 	return &TodoEntity{
-		Description: "",
-		DueDate:     "",
-		IsDone:      false,
+		Description: description,
+		DueDate:     dueDate,
+		IsDone:      isDone,
 	}
 }
 
 // SetDone changes the status of IsDone to true.
-func (t *TodoEntity) SetDone(isDone bool) {
-	t.IsDone = isDone
+func (t *TodoEntity) SetDone() {
+	t.IsDone = true
 }
