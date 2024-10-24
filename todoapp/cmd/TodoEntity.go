@@ -2,17 +2,17 @@ package cmd
 
 // TodoEntity represents a task with a description, due date, and status.
 type TodoEntity struct {
-	Description string
-	DueDate     string
-	IsDone      bool
+	Name    string `json:"name"`
+	DueDate string `json:"dueDate"`
+	IsDone  bool   `json:"isDone"`
 }
 
 // NewTodoEntity is the constructor for TodoEntity with default values.
-func NewTodoEntity(description string, dueDate string, isDone bool) *TodoEntity {
+func NewTodoEntity(name string, dueDate string, isDone bool) *TodoEntity {
 	return &TodoEntity{
-		Description: description,
-		DueDate:     dueDate,
-		IsDone:      isDone,
+		Name:    name,
+		DueDate: dueDate,
+		IsDone:  isDone,
 	}
 }
 

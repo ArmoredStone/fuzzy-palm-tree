@@ -1,4 +1,4 @@
-module cobra-cli
+module github.com/ArmoredStone/fuzzy-palm-tree
 
 go 1.23.2
 

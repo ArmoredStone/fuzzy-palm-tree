@@ -38,8 +38,8 @@ var listCmd = &cobra.Command{
 		}
 
 		// Print the tasks
-		for i, task := range tasks {
-			fmt.Printf("%d. %s (Due: %s, Done: %v)\n", i+1, task.Description, task.DueDate, task.IsDone)
+		for _, task := range tasks {
+			fmt.Printf("Name: %s (Due: %s, Done: %v)\n", task.Name, task.DueDate, task.IsDone)
 		}
 	},
 }
